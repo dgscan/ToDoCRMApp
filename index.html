@@ -1,0 +1,1258 @@
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+    <title>ToDo CRM App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Carlos Alvarez - Alvarez.is">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/font-style.css" rel="stylesheet">
+    <link href="assets/css/flexslider.css" rel="stylesheet">
+
+	<!-- DATA TABLE CSS -->
+	<link href="assets/css/table.css" rel="stylesheet">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+  	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
+	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+  	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+    $("#btn-blog-next").click(function () {
+      $('#blogCarousel').carousel('next')
+    });
+     $("#btn-blog-prev").click(function () {
+      $('#blogCarousel').carousel('prev')
+    });
+
+     $("#btn-client-next").click(function () {
+      $('#clientCarousel').carousel('next')
+    });
+     $("#btn-client-prev").click(function () {
+      $('#clientCarousel').carousel('prev')
+    });
+
+});
+
+ $(window).load(function(){
+
+    $('.flexslider').flexslider({
+        animation: "slide",
+        slideshow: true,
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+    });
+});
+
+</script>
+
+  </head>
+  <body>
+
+  	<!-- NAVIGATION MENU -->
+    <div class="navbar-nav navbar-inverse navbar-fixed-top">
+        <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><img src="assets/img/logo30.png" alt="">ToDo CRM App</a>
+        </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html"><i class="icon-home icon-white"></i> Home</a></li>
+              <li><a id="logout" href="#" onclick="Logout();"><i class="icon-calendar icon-white"></i> Çıkış Yap</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+    </div>
+    <div class="container">
+
+	  <!-- FIRST ROW OF BLOCKS -->
+      <div class="row">
+
+      <!-- USER PROFILE BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+	      		<dtitle>Kullanıcı Profili</dtitle>
+	      		<hr>
+				<div class="thumbnail">
+					<img src="assets/img/face80x80.jpg" alt="Marcel Newman" class="img-circle">
+				</div><!-- /thumbnail -->
+				<h1 id="userInfoNameBlock"></h1>
+				<h3 id="userInfoMailBlock"></h3>
+				<br>
+					<div class="info-user">
+						<span aria-hidden="true" class="li_user fs1"></span>
+						<span aria-hidden="true" class="li_settings fs1" onclick="UserSettings()"></span>
+						<span aria-hidden="true" class="li_mail fs1"></span>
+						<span aria-hidden="true" class="li_key fs1"></span>
+					</div>
+				</div>
+        </div>
+
+		  <div class="col-sm-3 col-lg-3">
+      <!-- LOCAL TIME BLOCK -->
+      		<div class="half-unit">
+	      		<dtitle>Yerel Saat</dtitle>
+	      		<hr>
+		      		<div class="clockcenter">
+			      		<digiclock>12:45:25</digiclock>
+		      		</div>
+			</div>
+
+      <!-- SERVER UPTIME
+			<div class="half-unit">
+	      		<dtitle>Server Uptime</dtitle>
+	      		<hr>
+	      		<div class="cont">
+					<p><img src="assets/img/up.png" alt=""> <bold>Up</bold> | 356ms.</p>
+				</div>
+			</div>-->
+
+        </div>
+		  <div class="col-sm-3 col-lg-3">
+
+			  <!-- TO DO LIST -->
+			  <div class="dash-unit">
+				  <dtitle>To Do List</dtitle>
+				  <hr>
+				  <div class="cont">
+					  <p><bold id="taskno"></bold> | Bekleyen Görevler</p>
+					  <p><bold id="finishedtaskno"></bold> | Tamamlanmış Görevler</p>
+				  </div>
+				  <!-- 	PROGRESS BAR	-->
+				  <div class="progress">
+
+
+					  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:10%;" id="progressbarid"><span class="sr-only">60% Complete</span>
+					  </div>
+
+
+				  </div>
+			  </div>
+
+			  <!-- SERVER UPTIME
+                    <div class="half-unit">
+                          <dtitle>Server Uptime</dtitle>
+                          <hr>
+                          <div class="cont">
+                            <p><img src="assets/img/up.png" alt=""> <bold>Up</bold> | 356ms.</p>
+                        </div>
+                    </div>-->
+
+		  </div>
+
+		  <div class="col-sm-3 col-lg-3">
+			  <!-- MAIL BLOCK -->
+			  <div class="dash-unit">
+				  <dtitle>Gelen Kutusu (1)</dtitle>
+				  <hr>
+				  <div class="framemail">
+					  <div class="window">
+						  <ul class="mail">
+							  <li>
+								  <i class="unread"></i>
+								  <img class="avatar" id="userInfoAvatar" src="assets/img/photo01.jpeg" alt="avatar">
+								  <p class="sender">Çağlar Ç.</p>
+								  <p class="message"><strong>Working</strong> - This is the last...</p>
+								  <div class="actions">
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
+								  </div>
+							  </li>
+							  <li>
+								  <i class="read"></i>
+								  <img class="avatar" src="assets/img/photo02.jpg" alt="avatar">
+								  <p class="sender">Senem E.</p>
+								  <p class="message"><strong>Hey man!</strong> - You have to taste ...</p>
+								  <div class="actions">
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
+								  </div>
+							  </li>
+							  <li>
+								  <i class="read"></i>
+								  <img class="avatar" src="assets/img/photo03.jpg" alt="avatar">
+								  <p class="sender">Ümit N.</p>
+								  <p class="message"><strong>New Mac :D</strong> - So happy with ...</p>
+								  <div class="actions">
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
+								  </div>
+							  </li>
+							  <li>
+								  <i class="read"></i>
+								  <img class="avatar" src="assets/img/photo04.jpg" alt="avatar">
+								  <p class="sender">Hasan B.</p>
+								  <p class="message"><strong>Thank you</strong> - Finally I can ...</p>
+								  <div class="actions">
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
+									  <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
+									  <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
+								  </div>
+							  </li>
+						  </ul>
+					  </div>
+				  </div>
+			  </div><!-- /dash-unit -->
+		  </div><!-- /span3 -->
+
+      </div><!-- /row -->
+
+
+	  <!-- SECOND ROW OF BLOCKS -->
+      <div class="row">
+
+		  <div class="col-sm-12 col-lg-12">
+		  <h4><strong>To Do List</strong>
+			  <input type="button" href="#addtask_modal" value="Yeni Görev Ekle" class='submit btn-success btn btn-large' data-toggle="modal" onclick="GetRegisteredCustomers()">
+			  &nbsp;
+			  <input type="button" href="#addcustomer_modal" value="Yeni Müşteri Ekle" class='submit btn-success btn btn-large' data-toggle="modal" onclick="">
+			  &nbsp;
+			  <input type="button" href="#updatecustomer_modal" value="Müşteri Bilgilerini Güncelle" class='submit btn-success btn btn-large' data-toggle="modal" onclick="GetRegisteredCustomers()">
+		  </h4>
+
+			  <div class="accordion" id="accordion2">
+				  <div class="accordion-group">
+					  <div class="accordion-heading">
+
+						  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+							  Devam Eden Görevler
+						  </a>
+
+					  </div>
+					  <div id="collapseOne" class="accordion-body collapse in">
+						  <div class="accordion-inner">
+
+
+							  <!-- DEVAM EDEN GÖREVLER TABLE -->
+							  <table class="display">
+								  <thead>
+								  <tr>
+									  <th>Firma Ünvanı</th>
+									  <th>Yetkili Kişi</th>
+									  <th>İletişim Bilgileri</th>
+									  <th>Başlama Tarihi</th>
+									  <th>Güncelleme Tarihi</th>
+									  <th>Görev Durumu</th>
+									  <th>Teklif Kodu</th>
+									  <th>Kontrat No</th>
+									  <th>Alınacak Aksiyon</th>
+									  <th>Güncelle</th>
+								  </tr>
+								  </thead>
+								  <tbody id="tableBody">
+								  </tbody>
+							  </table><!--/END First Table -->
+
+
+
+						  </div>
+					  </div>
+				  </div>
+
+				  <div class="accordion-group">
+					  <div class="accordion-heading">
+
+						  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+							  Tamamlanmış Görevler
+						  </a>
+					  </div>
+					  <div id="collapseTwo" class="accordion-body collapse">
+						  <div class="accordion-inner">
+
+							  <!-- TAMAMLANMIŞ GÖREVLER TABLE -->
+							  <table class="display">
+								  <thead>
+								  <tr>
+									  <th>Firma Ünvanı</th>
+									  <th>Yetkili Kişi</th>
+									  <th>İletişim Bilgileri</th>
+									  <th>Başlama Tarihi</th>
+									  <th>Güncelleme Tarihi</th>
+									  <th>Görev Durumu</th>
+									  <th>Teklif Kodu</th>
+									  <th>Kontrat No</th>
+									  <th>Alınacak Aksiyon</th>
+									  <th>Güncelle</th>
+								  </tr>
+								  </thead>
+								  <tbody id="finishedtableBody">
+								  </tbody>
+							  </table><!--/END First Table -->
+
+						  </div>
+					  </div>
+				  </div>
+
+			  </div><!--/accordion -->
+
+
+
+
+			  <!--				POP UP GÜNCELLEME MODAL			-->
+			  <div class="modal" id="my_modal">
+				  <div class="modal-dialog">
+					  <div class="modal-content">
+						  <div class="modal-header">
+							  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							  <h4 class="modal-title">Görev Güncelle</h4>
+						  </div>
+						  <div class="modal-body">
+							  Görev No:
+							  <input type="text" name="taskid" id="taskid" disabled="true" value=""/>
+							  Firma Ünvanı:
+							  <input type="text" name="companyName" id="companyname" disabled="true" value=""/>
+							  Yetkili Kişi:
+							  <input type="text" name="personinCharge" id="personincharge" disabled="true" value=""/>
+							  E-mail:
+							  <input type="text" name="email" id="email" disabled="true" value=""/>
+							  Teklif Kodu:
+							  <input type="text" name="offernr" id="offernr" value=""/>
+							  Kontrat Kodu:
+							  <input type="text" name="proformanr" id="proformanr" value=""/>
+							  Alınacak Aksiyon:
+							  <input type="text" name="description" id="description" value=""/>
+
+							  <select id="taskstatus">
+								  <option value="notstarted">Not Started</option>
+								  <option value="started">Started</option>
+								  <option value="finished">Finished</option>
+							  </select>
+
+						  </div>
+						  <div class="modal-footer">
+							  <input type="button" class="submit btn-success btn btn-large" value="Güncelle" onclick="UpdateTableFromPopup()">
+							  <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <!--				POP UP GÜNCELLEME MODAL			-->
+
+
+			  <!--				POP UP YENİ GÖREV EKLEME MODAL			-->
+			  <div class="modal" id="addtask_modal">
+				  <div class="modal-dialog">
+					  <div class="modal-content">
+						  <div class="modal-header">
+							  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							  <h4 class="modal-title">Yeni Görev Ekle</h4>
+						  </div>
+						  <div class="modal-body">
+							  <p id="companyname_tag">Firma Ünvanı:</p>
+
+							  <select id="companylist" class="input-group-addon" style="width: auto">
+
+							  </select>
+							  <hr>
+
+							  <p id="description_tag">Alınacak Aksiyon:</p>
+							  <input type="text" name="description" id="add_description" value=""/>
+
+
+						  </div>
+						  <div class="modal-footer">
+							  <input type="button" class="submit btn-success btn btn-large" value="Kaydet" onclick="RegisterNewTaskFromPopup()">
+							  <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <!--				POP UP YENİ GÖREV EKLEME MODAL			-->
+
+
+			  <!--				POP UP YENİ MÜŞTERİ EKLEME MODAL			-->
+			  <div class="modal" id="addcustomer_modal">
+				  <div class="modal-dialog">
+					  <div class="modal-content">
+						  <div class="modal-header">
+							  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							  <h4 class="modal-title">Yeni Müşteri Ekle</h4>
+						  </div>
+						  <div class="modal-body">
+							  <p id="add_companyname_tag">Firma Ünvanı:</p>
+							  <input type="text" name="companyName" id="add_companyname" value=""/>
+							  <p id="add_taxno_tag">Vergi Numarası:</p>
+							  <input type="text" name="taxNo" id="add_taxno" value=""/>
+
+							  <table style="border: none;"  width="100%">
+								  <tr>
+									  <td id="add_customername_tag">Yetkili Adı:</td>
+									  <td id="add_customersurname_tag">Soyadı:</td>
+								  </tr>
+								  <tr>
+									  <td><input type="text" name="customerName" id="add_customername" value=""/></td>
+									  <td><input type="text" name="customerSurname" id="add_customersurname" value=""/></td>
+								  </tr>
+							  </table>
+
+
+							  </p>E-mail:</p>
+							  <input type="text" name="email" id="add_email" value=""/>
+							  <p id="address_tag">Adres:</p>
+							  <input type="text" name="address" id="add_address" value=""/>
+							  <p id="telephone_tag">Telefon:</p>
+							  <input type="text" name="telephone" id="add_telephone" value=""/>
+
+
+						  </div>
+						  <div class="modal-footer">
+							  <input type="button" class="submit btn-success btn btn-large" value="Kaydet" onclick="AddNewCustomerButton()">
+							  <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <!--				POP UP YENİ MÜŞTERİ EKLEME MODAL			-->
+
+
+			  <!--				POP UP MÜŞTERİ GÜMCELLEME MODAL			-->
+			  <div class="modal" id="updatecustomer_modal">
+				  <div class="modal-dialog">
+					  <div class="modal-content">
+						  <div class="modal-header">
+							  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							  <h4 class="modal-title">Müşteri Bilgilerini Güncelle</h4>
+						  </div>
+						  <div class="modal-body">
+
+							  <p>Güncellenecek Firmayı Seçin:</p>
+							  <select id="companyliste" class="input-group-addon" style="width: auto" onchange="LoadCustomerDetails(this.value)">
+
+							  </select>
+							  <p id="update_companyname_tag">Firma Ünvanı:</p>
+							  <input type="text" name="companyName" id="update_companyname" value=""/>
+							  <p id="update_taxno_tag">Vergi Numarası:</p>
+							  <input type="text" name="taxNo" id="update_taxno" value=""/>
+
+							  <table style="border: none;"  width="100%">
+								  <tr>
+									  <td id="update_customername_tag">Yetkili Adı:</td>
+									  <td id="update_customersurname_tag">Soyadı:</td>
+								  </tr>
+								  <tr>
+									  <td><input type="text" name="customerName" id="update_customername" value=""/></td>
+									  <td><input type="text" name="customerSurname" id="update_customersurname" value=""/></td>
+								  </tr>
+							  </table>
+
+
+							  </p>E-mail:</p>
+							  <input type="text" name="email" id="update_email" value=""/>
+							  <p id="update_address_tag">Adres:</p>
+							  <input type="text" name="address" id="update_address" value=""/>
+							  <p id="update_telephone_tag">Telefon:</p>
+							  <input type="text" name="telephone" id="update_telephone" value=""/>
+
+
+						  </div>
+						  <div class="modal-footer">
+							  <input type="button" id="UpdateCustomerListButtonId" class="submit btn-success btn btn-large" value="Güncelle" onclick="UpdateCustomerButton()" disabled="true">
+							  <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+			  <!--				POP UP MÜŞTERİ GÜNCELLEME MODAL			-->
+
+
+		  </div>
+
+      </div><!-- /row -->
+
+
+	  <!-- THIRD ROW OF BLOCKS -->
+      <div class="row">
+      	<div class="col-sm-3 col-lg-3">
+
+	  <!-- BARS CHART - lineandbars.js file
+      		<div class="half-unit">
+	      		<dtitle>Stock Information</dtitle>
+	      		<hr>
+	      		<div class="cont">
+	      		 <div class="info-aapl">
+			        <h4>AAPL</h4>
+			        <ul>
+			          <li><span class="orange" style="height: 37.5%"></span></li>
+			          <li><span class="orange" style="height: 47.5%"></span></li>
+			          <li><span class="orange" style="height: 70%"></span></li>
+			          <li><span class="orange" style="height: 85%"></span></li>
+			          <li><span class="green" style="height: 75%"></span></li>
+			          <li><span class="green" style="height: 50%"></span></li>
+			          <li><span class="green" style="height: 15%"></span></li>
+			        </ul>
+			      </div>
+			      </div>
+      		</div> -->
+
+
+      	</div>
+
+      	<div class="col-sm-3 col-lg-3">
+
+	  <!-- LIVE VISITORS BLOCK
+      		<div class="half-unit">
+	      		<dtitle>Live Visitors</dtitle>
+	      		<hr>
+	      		<div class="cont">
+      			<p><bold>388</bold></p>
+      			<p><img src="assets/img/up-small.png" alt=""> 412 Max. | <img src="assets/img/down-small.png" alt=""> 89 Min.</p>
+	      		</div>
+      		</div>-->
+
+	  <!-- PAGE VIEWS BLOCK
+      		<div class="half-unit">
+	      		<dtitle>Page Views</dtitle>
+	      		<hr>
+	      		<div class="cont">
+      			<p><bold>145.0K</bold></p>
+      			<p><img src="assets/img/up-small.png" alt=""> 23.88%</p>
+	      		</div>
+      		</div>-->
+      	</div>
+
+      	<div class="col-sm-3 col-lg-3">
+	  <!-- TOTAL SUBSCRIBERS BLOCK
+      		<div class="half-unit">
+	      		<dtitle>Total Subscribers</dtitle>
+	      		<hr>
+	      		<div class="cont">
+      			<p><bold>14.744</bold></p>
+      			<p>98 Subscribed Today</p>
+	      		</div>
+      		</div>-->
+
+	  <!-- FOLLOWERS BLOCK
+      		<div class="half-unit">
+	      		<dtitle>Twitter Followers</dtitle>
+	      		<hr>
+	      		<div class="cont">
+      			<p><bold>17.833 Followers</bold></p>
+      			<p>@SomeUser</p>
+	      		</div>
+      		</div>-->
+      	</div>
+
+	  <!-- LATEST NEWS BLOCK
+      	<div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+	      		<dtitle>Latest News</dtitle>
+	      		<hr>
+				<div class="info-user">
+					<span aria-hidden="true" class="li_news fs2"></span>
+				</div>
+				<br>
+      			<div class="text">
+      				<p><b>Alvarez.is:</b> A beautiful new Dashboard theme has been realised by Carlos Alvarez. Please, visit <a href="http://alvarez.is">Alvarez.is</a> for more details.</p>
+      				<p><grey>Last Update: 5 minutes ago.</grey></p>
+      			</div>
+      		</div>
+      	</div>-->
+      </div><!-- /row -->
+
+	  <!-- FOURTH ROW OF BLOCKS -->
+	<div class="row">
+
+		<!-- TWITTER WIDGET BLOCK
+		<div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+	      		<dtitle>Twitter Widget</dtitle>
+	      		<hr>
+				<div class="info-user">
+					<span aria-hidden="true" class="li_megaphone fs2"></span>
+				</div>
+				<br>
+		 		<div id="jstwitter" class="clearfix">
+					<ul id="twitter_update_list"></ul>
+				</div>
+				<script src="http://twitter.com/javascripts/blogger.js"></script> Script Needed to load the Tweets -->
+		<!--
+				<script type="text/javascript" src="http://api.twitter.com/1/statuses/fatihpolyester.json?screen_name=stackoverflow&include_rts=true&count=4&callback=twitterCallback2"></script>
+
+				 To show your tweets replace "wrapbootstrap", in the line above, with your user. -->
+		<!--<div class="text">
+				<p><grey>Show your tweets here!</grey></p>
+				</div>
+			</div>
+		</div>-->
+		<!-- NOTIFICATIONS BLOCK
+		<div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+	      		<dtitle>Notifications</dtitle>
+	      		<hr>
+	      		<div class="info-user">
+					<span aria-hidden="true" class="li_bubble fs2"></span>
+				</div>
+	      		<div class="cont">
+	      			<p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is a success notification&quot;,&quot;layout&quot;:&quot;topRight&quot;,&quot;type&quot;:&quot;success&quot;}">Top Right</button></p>
+	      			<p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an informaton notification&quot;,&quot;layout&quot;:&quot;topLeft&quot;,&quot;type&quot;:&quot;information&quot;}">Top Left</button></p>
+	      			<p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an alert notification with fade effect.&quot;,&quot;layout&quot;:&quot;topCenter&quot;,&quot;type&quot;:&quot;alert&quot;,&quot;animateOpen&quot;: {&quot;opacity&quot;: &quot;show&quot;}}">Top Center (fade)</button></p>
+	      		</div>
+			</div>
+		</div>-->
+		<!-- SWITCHES BLOCK
+		<div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+	      		<dtitle>Switches</dtitle>
+	      		<hr>
+	      		<div class="info-user">
+					<span aria-hidden="true" class="li_params fs2"></span>
+				</div>
+				<br>
+				<div class="switch">
+					<input type="radio" class="switch-input" name="view" value="on" id="on" checked="">
+					<label for="on" class="switch-label switch-label-off">On</label>
+					<input type="radio" class="switch-input" name="view" value="off" id="off">
+					<label for="off" class="switch-label switch-label-on">Off</label>
+					<span class="switch-selection"></span>
+				</div>
+				<div class="switch switch-blue">
+					<input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked="">
+					<label for="week2" class="switch-label switch-label-off">Week</label>
+					<input type="radio" class="switch-input" name="view2" value="month2" id="month2">
+					<label for="month2" class="switch-label switch-label-on">Month</label>
+					<span class="switch-selection"></span>
+				</div>
+
+				<div class="switch switch-yellow">
+					<input type="radio" class="switch-input" name="view3" value="yes" id="yes" checked="">
+					<label for="yes" class="switch-label switch-label-off">Yes</label>
+					<input type="radio" class="switch-input" name="view3" value="no" id="no">
+					<label for="no" class="switch-label switch-label-on">No</label>
+					<span class="switch-selection"></span>
+				</div>
+			</div>
+		</div>-->
+		<!-- GAUGE CHART BLOCK
+		<div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+	      		<dtitle>Gauge Chart</dtitle>
+	      		<hr>
+	      		<div class="info-user">
+					<span aria-hidden="true" class="li_lab fs2"></span>
+				</div>
+				<canvas id="canvas" width="300" height="300">
+			</canvas></div>
+		</div>-->
+
+	</div><!--/row -->
+
+ 	  <!-- FOURTH ROW OF BLOCKS -->
+		<div class="row">
+
+			<div class="col-sm-3 col-lg-3">
+
+ 	  		<!-- LAST USER BLOCK
+				<div class="half-unit">
+	      		<dtitle>Last Registered User</dtitle>
+	      		<hr>
+	      			<div class="cont2">
+	      				<img src="assets/img/user-avatar.jpg" alt="">
+	      				<br>
+	      				<br>
+	      				<p>Paul Smith</p>
+	      				<p><bold>Liverpool, England</bold></p>
+	      			</div>
+				</div>-->
+
+ 	  		<!-- MODAL BLOCK
+				<div class="half-unit">
+	      		<dtitle>Modal</dtitle>
+	      		<hr>
+		            <div class="cont">
+		                <a href="#myModal" role="button" class="btnnew" data-toggle="modal">Example Modal Window</a>
+		            </div>
+				</div>-->
+			</div>
+		</div><!--/row -->
+
+	</div> <!-- /container -->
+	<div id="footerwrap">
+      	<footer class="clearfix"></footer>
+      	<div class="container">
+      		<div class="row">
+      			<div class="col-sm-12 col-lg-12">
+      			<p><img src="assets/img/logo.png" alt=""></p>
+      			<p>Blocks Dashboard Theme - Crafted With Love - Copyright 2013</p>
+      			</div>
+
+      		</div><!-- /row -->
+      	</div><!-- /container -->
+	</div><!-- /footerwrap -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+	<script type="text/javascript" src="assets/js/lineandbars.js"></script>
+
+	<script type="text/javascript" src="assets/js/dash-charts.js"></script>
+	<script type="text/javascript" src="assets/js/gauge.js"></script>
+
+	<!-- NOTY JAVASCRIPT -->
+	<script type="text/javascript" src="assets/js/noty/jquery.noty.js"></script>
+	<script type="text/javascript" src="assets/js/noty/layouts/top.js"></script>
+	<script type="text/javascript" src="assets/js/noty/layouts/topLeft.js"></script>
+	<script type="text/javascript" src="assets/js/noty/layouts/topRight.js"></script>
+	<script type="text/javascript" src="assets/js/noty/layouts/topCenter.js"></script>
+
+	<!-- You can add more layouts if you want -->
+	<script type="text/javascript" src="assets/js/noty/themes/default.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/dash-noty.js"></script> This is a Noty bubble when you init the theme-->
+	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="assets/js/jquery.flexslider.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="assets/js/admin.js"></script>
+
+	<script>
+
+		var xhttp;
+		var username;
+        xhttp = new XMLHttpRequest();
+        var parsedData;
+        var customerList;
+
+        /*SAYFA YÜKLENİNCE USERNAME İ AL VE DATA TABLE 'I DOLDUR*/
+		window.onload = function () {
+			var urlString = document.location.href;
+			urlParams = parseURLParams(urlString);
+
+			username=urlParams.uname[0];
+			console.log(username);
+
+			xhttp.open("GET","home?uname="+username,true);
+            xhttp.send();
+
+
+            <!--    Get response message of server -->
+            xhttp.onreadystatechange = function () {
+
+                if(this.readyState == 4 && this.status == 200){
+
+                    var json = this.responseText;
+                    parsedData = JSON.parse(json);
+
+                    console.log("name surname:"+parsedData.name+" "+parsedData.surname);
+
+					document.getElementById("userInfoNameBlock").innerText= parsedData.name+" "+parsedData.surname;
+                    document.getElementById("userInfoMailBlock").innerText= parsedData.email;
+
+                    GetTableData();
+                }
+                else{
+
+				}
+
+            };
+            <!--    Get response message of server -->
+
+        }
+
+        /*GET TABLE DATA FROM DB*/
+        function GetTableData() {
+
+		    xhttp.open("GET","gettask?uname="+username,true);
+		    xhttp.send();
+
+            <!--    Get response message of server FOR TABLE DATA-->
+            xhttp.onreadystatechange = function () {
+                if(this.readyState == 4 && this.status == 200) {
+
+
+                    var json = this.responseText;
+
+                    if (json !== "empty") {
+
+                        parsedData = JSON.parse(json);
+                        var todotaskNr = 0;
+                        var finishedtodoTaskNr = 0;
+                        var tbody = document.getElementById("tableBody"); /*TODO TASK TABLE BODY*/
+
+                        var finishedtbody = document.getElementById("finishedtableBody")
+
+                        console.log(parsedData[0].employeid + " " + parsedData[0].companyname + " " + parsedData.length);
+
+                        for (var i = 0; i < parsedData.length; i++) {
+
+                            if (parsedData[i].status !== "finished") {
+                                tbody.innerHTML +=
+                                    "<tr class=\"odd\">\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].companyname + "</td>\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].customername + " " + parsedData[i].customersurname + "</td>\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].email + " " + parsedData[i].telephone + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].startdate + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].update + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].status + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].offernr + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].proformanr + "</td>\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].description + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" +
+                                    "<input type=\"button\" href=\"#my_modal\" value=\"Güncelle\" class='submit btn-success btn btn-large' data-toggle=\"modal\" " +
+                                    "data-companyname='" + parsedData[i].companyname + "'" +
+                                    "data-personincharge='" + parsedData[i].customername + " " + parsedData[i].customersurname + "'" +
+                                    "data-email='" + parsedData[i].email + "'" +
+                                    "data-offernr='" + parsedData[i].offernr + "'" +
+                                    "data-proformanr='" + parsedData[i].proformanr + "'" +
+                                    "data-taskid='" + parsedData[i].taskid + "'" +
+                                    "data-description='" + parsedData[i].description + "'></td>\n" +
+                                    "\t\t\t  </tr>";
+                                todotaskNr = todotaskNr + 1;
+                            } else {
+
+                                /*FINISHED TABLO İÇERİĞİ BURADA DOLDURULACAKTIR.*/
+                                finishedtbody.innerHTML +=
+                                    "<tr class=\"odd\">\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].companyname + "</td>\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].customername + " " + parsedData[i].customersurname + "</td>\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].email + " " + parsedData[i].telephone + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].startdate + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].update + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].status + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].offernr + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" + parsedData[i].proformanr + "</td>\n" +
+                                    "\t\t\t\t  <td>" + parsedData[i].description + "</td>\n" +
+                                    "\t\t\t\t  <td class=\"center\">" +
+                                    "<input type=\"button\" href=\"#my_modal\" value=\"Güncelle\" class='submit btn-success btn btn-large' data-toggle=\"modal\" " +
+                                    "data-companyname='" + parsedData[i].companyname + "'" +
+                                    "data-personincharge='" + parsedData[i].customername + " " + parsedData[i].customersurname + "'" +
+                                    "data-email='" + parsedData[i].email + "'" +
+                                    "data-offernr='" + parsedData[i].offernr + "'" +
+                                    "data-proformanr='" + parsedData[i].proformanr + "'" +
+                                    "data-taskid='" + parsedData[i].taskid + "'" +
+                                    "data-description='" + parsedData[i].description + "'></td>\n" +
+                                    "\t\t\t  </tr>";
+
+                                finishedtodoTaskNr = finishedtodoTaskNr + 1;
+                            }
+
+                        }
+
+                        document.getElementById("taskno").innerText = todotaskNr; //BEKLEYEN GÖREV SAYISI
+                        document.getElementById("finishedtaskno").innerText = finishedtodoTaskNr; //TAMAMLANMIŞ GÖREV SAYISI
+
+                        /*	SHOW PROGRESS BAR COMPLETED WORKS	*/
+                        var bar = (todotaskNr + finishedtodoTaskNr);
+                        bar = finishedtodoTaskNr / bar * 100;
+                        var barTxt = bar + "%";
+
+                        document.getElementById("progressbarid").style.width = barTxt;
+                    }
+                }
+
+            };
+            <!--    Get response message of server FOR TABLE DATA -->
+
+        }
+
+        /*POPUP GÜNCELLEME MODAL SAYFASINA TABLE DATALARINI GÖNDER*/
+        $('#my_modal').on('show.bs.modal', function(e) {
+
+            var companyName = $(e.relatedTarget).data('companyname');
+            var personinCharge = $(e.relatedTarget).data('personincharge');
+            var email = $(e.relatedTarget).data('email');
+            var offernr = $(e.relatedTarget).data('offernr');
+            var proformanr = $(e.relatedTarget).data('proformanr');
+            var description = $(e.relatedTarget).data('description');
+            var taskid = $(e.relatedTarget).data('taskid');
+
+
+            $(e.currentTarget).find('input[name="companyName"]').val(companyName);
+            $(e.currentTarget).find('input[name="personinCharge"]').val(personinCharge);
+            $(e.currentTarget).find('input[name="email"]').val(email);
+            $(e.currentTarget).find('input[name="offernr"]').val(offernr);
+            $(e.currentTarget).find('input[name="proformanr"]').val(proformanr);
+            $(e.currentTarget).find('input[name="description"]').val(description);
+            $(e.currentTarget).find('input[name="taskid"]').val(taskid);
+        });
+
+        /*USER PROFILE SETTINGS SAYFASINA YÖNLENDİR*/
+		function UserSettings() {
+		    //window.location.href="user.html";
+        }
+
+        /*		PARSE URL TO GET USERNAME		*/
+        function parseURLParams(url) {
+
+            var queryStart = url.indexOf("?") + 1,
+                queryEnd   = url.indexOf("#") + 1 || url.length + 1,
+                query = url.slice(queryStart, queryEnd - 1),
+                pairs = query.replace(/\+/g, " ").split("&"),
+                parms = {}, i, n, v, nv;
+
+            if (query === url || query === "") return;
+
+            for (i = 0; i < pairs.length; i++) {
+                nv = pairs[i].split("=", 2);
+                n = decodeURIComponent(nv[0]);
+                v = decodeURIComponent(nv[1]);
+
+                if (!parms.hasOwnProperty(n)) parms[n] = [];
+                parms[n].push(nv.length === 2 ? v : null);
+            }
+            return parms;
+
+        }
+
+        /*	POPUP SAYFASINDAN DATALARI NODE JS İLE DB DE GÜNCELLE	*/
+        function UpdateTableFromPopup() {
+			var offernr = document.getElementById("offernr").value;
+			var taskid = document.getElementById("taskid").value;
+            var proformanr = document.getElementById("proformanr").value;
+            var description = document.getElementById("description").value;
+            var status = document.getElementById("taskstatus").value;
+
+            /*BACKEND KISMINA DATALARI JSON İLE GÖNDER*/
+			var json = JSON.stringify({
+				'taskid':taskid,
+				'offernr':offernr,
+				'proformanr': proformanr,
+				'description': description,
+				'status':status
+			});
+
+			console.log(JSON.parse(json));
+
+			/*POST DATA WITH AJAX TO SERVER.JS*/
+            $.ajax('updatetable', {
+                type: 'POST',
+                contentType: 'text/json',
+                data: json,
+                complete: function(response) {
+
+                    console.log(response);
+
+                    /* Do something with the response. */
+                    if(response.readyState == 4 && response.status == 200){
+                        console.log(response.responseText);
+                        alert("Güncelleme başarılı.");
+                        window.location.href="index.html?uname="+username;
+                    }
+                    else{
+                        alert("Güncelleme başarısız.");
+					}
+                }
+            });
+            return false; // Prevent form submit.
+
+
+        }
+
+
+        /*		YENİ GÖREV EKLE (TO-DO LIST'E)	*/
+        function RegisterNewTaskFromPopup() {
+
+            var companylist = document.getElementById("companylist");
+            var selecetedCompany = companylist.options[companylist.selectedIndex].value;
+
+            console.log("selected:"+selecetedCompany);
+            var description = document.getElementById("add_description").value;
+
+            if (description!==""){
+
+                var json = JSON.stringify({
+                    'taxno':selecetedCompany,
+                    'description':description,
+					'employeid':username
+                });
+
+                /*		POST DATA WITH AJAX TO SERVER.JS		*/
+                /*				REGISTER NEW TASK				*/
+                $.ajax('registertask', {
+                    type: 'POST',
+                    contentType: 'text/json',
+                    data: json,
+                    complete: function(response) {
+
+                        /* Do something with the response. */
+                        if(response.readyState == 4 && response.status == 200){
+                            console.log(response.responseText);
+                            alert("Görev ekleme başarılı.");
+                            window.location.href="index.html?uname="+username;
+                        }
+                        else{
+                            alert("Görev ekleme başarısız.");
+                        }
+                    }
+
+                });
+                return false;
+			}
+            else {
+                alert("İşaretli alanlar boş bırakılamaz.");
+
+                /*yeni ekleme modalda <p> etiketindeki idleri çekip * işareti koy*/
+                document.getElementById("description_tag").style.color="RED";
+                document.getElementById("description_tag").style.fontWeight="700";
+
+			}
+
+
+        }
+
+        /*GET REGISTERED CUSTOMER LIST*/
+        function GetRegisteredCustomers() {
+
+            console.log("Get registered customer");
+
+            $.ajax('getcustomerlist', {
+                type: 'POST',
+                contentType: 'text/json',
+                data: username,
+                complete: function(response) {
+
+                    console.log(response);
+
+                    /* Do something with the response. */
+                    if(response.readyState == 4 && response.status == 200){
+
+                        var parsed = JSON.parse(response.responseText);
+
+                        customerList = parsed;
+
+                        //console.log("cust list:"+customerList[1].companyname);
+
+                        AddRegisteredCustomerstoTaskTable(parsed);
+                        AddRegisteredCustomerstoUpdateCustomerTable(parsed);
+                    }
+                    else{
+                        alert("Müşteri listesi yüklenemedi!");
+                    }
+                }
+            });
+            return false;
+        }
+
+        /*	ADD NEW CUSTOMER	*/
+		function AddNewCustomerButton() {
+
+		    var companyName = document.getElementById("add_companyname").value;
+            var taxNo = document.getElementById("add_taxno").value;
+            var customerName = document.getElementById("add_customername").value;
+            var customerSurname = document.getElementById("add_customersurname").value;
+            var email = document.getElementById("add_email").value;
+            var address = document.getElementById("add_address").value;
+            var telephone = document.getElementById("add_telephone").value;
+
+
+			if(companyName === "" && taxNo === "" && customerName === "" && customerSurname === ""
+				&& address === "" && telephone === ""){
+
+			    alert("İşaretli alanlar boş bırakılamaz!");
+
+                document.getElementById("add_companyname_tag").style.color="RED";
+                document.getElementById("add_taxno_tag").style.color="RED";
+                document.getElementById("add_customername_tag").style.color="RED";
+                document.getElementById("add_customersurname_tag").style.color="RED";
+                document.getElementById("address_tag").style.color="RED";
+                document.getElementById("telephone_tag").style.color="RED";
+
+                document.getElementById("add_companyname_tag").style.fontWeight="700";
+                document.getElementById("add_taxno_tag").style.fontWeight="700";
+                document.getElementById("add_customername_tag").style.fontWeight="700";
+                document.getElementById("add_customersurname_tag").style.fontWeight="700";
+                document.getElementById("address_tag").style.fontWeight="700";
+                document.getElementById("telephone_tag").style.fontWeight="700";
+			}
+			else{
+
+                var json = JSON.stringify({
+                    'taxno':taxNo,
+                    'companyname':companyName,
+                    'customername':customerName,
+                    'customersurname':customerSurname,
+                    'email':email,
+                    'address':address,
+                    'telephone':telephone
+                });
+
+
+                $.ajax('registernewcustomer', {
+                    type: 'POST',
+                    contentType: 'text/json',
+                    data: json,
+                    complete: function(response) {
+
+                        console.log(response);
+
+                        /* Do something with the response. */
+                        if(response.readyState == 4 && response.status == 200){
+
+                            //var parsed = JSON.parse(response.responseText);
+
+                            alert("Yeni Müşteri kaydedildi!");
+
+                            document.getElementById("add_companyname").innerText="";
+                            document.getElementById("add_taxno").innerText="";
+                            document.getElementById("add_customername").innerText="";
+                            document.getElementById("add_customersurname").innerText="";
+                            document.getElementById("add_email").innerText="";
+                            document.getElementById("add_address").innerText="";
+                            document.getElementById("add_telephone").innerText="";
+                        }
+                        else{
+                            alert("Yeni Müşteri kaydedilemedi: Database hatası!");
+                        }
+                    }
+                });
+                return false;
+			}
+
+        }
+
+        /*	SEND NEW DATA TO NODE JS AND UPDATE DB	*/
+        function UpdateCustomerButton() {
+
+            var companyName = document.getElementById("update_companyname").value;
+            var taxno = document.getElementById("update_taxno").value;
+            var customerName = document.getElementById("update_customername").value;
+            var customerSurname = document.getElementById("update_customersurname").value;
+            var email = document.getElementById("update_email").value;
+            var address = document.getElementById("update_address").value;
+            var telephone = document.getElementById("update_telephone").value;
+
+            var companylist = document.getElementById("companyliste");
+            var oldtaxno = companylist.options[companylist.selectedIndex].value;
+
+
+            var json = JSON.stringify({
+                'companyname':companyName,
+				'newtaxno':taxno,
+				'oldtaxno':oldtaxno,
+				'customername':customerName,
+				'customersurname':customerSurname,
+				'email':email,
+				'address':address,
+				'telephone':telephone
+			});
+
+            $.ajax('updatecustomer', {
+                type: 'POST',
+                contentType: 'text/json',
+                data: json,
+                complete: function(response) {
+
+                    console.log(response);
+
+                    /* Do something with the response. */
+                    if(response.readyState == 4 && response.status == 200){
+
+                        alert("Müşteri bilgileri güncellendi.");
+
+                        GetRegisteredCustomers();
+                    }
+                    else{
+                        alert("Müşteri bilgileri güncellenmedi: Database hatası!");
+                    }
+                }
+            });
+            return false;
+
+        }
+
+        /*tax no ya göre müşteri bilgilerini yükle json dosyası ile kıyasla db'ye gitme*/
+        function LoadCustomerDetails(taxno) {
+
+			if(taxno!==""){
+                /*GÜNCELLE BUTONUNU AKTİFLEŞTİR*/
+			    document.getElementById("UpdateCustomerListButtonId").disabled=false;
+			    console.log("tax no:"+taxno);
+
+			    for (var i=0; i<customerList.length; i++){
+
+			        if(taxno.toString() === customerList[i].taxno.toString())
+					{
+					    console.log("Selected:"+customerList[i].companyname);
+					    document.getElementById("update_companyname").value=customerList[i].companyname;
+                        document.getElementById("update_taxno").value=customerList[i].taxno;
+                        document.getElementById("update_customername").value=customerList[i].customername;
+                        document.getElementById("update_customersurname").value=customerList[i].customersurname;
+                        document.getElementById("update_email").value=customerList[i].email;
+                        document.getElementById("update_address").value=customerList[i].address;
+                        document.getElementById("update_telephone").value=customerList[i].telephone;
+					}
+				}
+
+			}
+			else{
+			    alert("Lütfen bir firma seçimi yapınız!");
+			}
+
+        }
+
+        /*	ADD CUSTOMER INFORMATION TO ADD TASK DROPDOWN	*/
+        function AddRegisteredCustomerstoTaskTable(parsed) {
+
+            document.getElementById("companylist").innerHTML="";
+
+            for (var i=0;i<parsed.length;i++){
+                document.getElementById("companylist").innerHTML+="<option value='"+parsed[i].taxno+"'>"+parsed[i].companyname+"</option>";
+            }
+        }
+
+        /*	ADD CUSTOMER INFORMATION TO UPDATE CUSTOMERS DROPDOWN	*/
+        function AddRegisteredCustomerstoUpdateCustomerTable(parsed){
+            document.getElementById("companyliste").innerHTML="<option value=''>Lütfen bir seçim yapınız.</option>";
+
+            for (var i=0;i<parsed.length;i++){
+                document.getElementById("companyliste").innerHTML+="<option value='"+parsed[i].taxno+"'>"+parsed[i].companyname+"</option>";
+            }
+        }
+
+        function Logout() {
+
+            xhttp.open("GET","logout",true);
+            xhttp.send();
+            <!--    Get response message of server -->
+            xhttp.onreadystatechange = function () {
+
+                if(this.readyState == 4 && this.status == 200){
+                    console.log("logout txt:"+this.responseText);
+                    if(this.responseText === "logout"){
+                        window.location.href="login.html";
+					}
+                }
+
+            };
+            <!--    Get response message of server -->
+
+
+        }
+	</script>
+
+</body></html>
