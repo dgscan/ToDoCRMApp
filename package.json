@@ -1,0 +1,36 @@
+{
+  "name": "todocrmapp",
+  "version": "1.0.0",
+  "description": "ToDoCRMApp",
+  "main": "server.js",
+  "dependencies": {
+    "ajax": "^0.0.4",
+    "body-parser": "^1.18.3",
+    "ajax.js": "^2.0.0",
+    "express": "^4.16.4",
+    "express.js": "^1.0.0",
+    "mysql": "^2.17.1",
+    "node": "^11.15.0",
+    "node.js": "^0.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgscan/ToDoCRMApp.git"
+  },
+  "keywords": [
+    "todo",
+    "crm",
+    "javascript"
+  ],
+  "author": "Doguscan_Yaginli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dgscan/ToDoCRMApp/issues"
+  },
+  "homepage": "https://github.com/dgscan/ToDoCRMApp#readme"
+}
